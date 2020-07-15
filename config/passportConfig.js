@@ -49,14 +49,17 @@ passport.use(
     function(phone, password, done) {
       User.findOne({ phone: phone }, function(err, user) {
         if (err) { 
+          console.log("nonfound1");
           return done(err);
         }
         // If no user is found // TODO. remove flash message for now
         if (!user) { 
+          console.log("nonfound2")
           return done(null, false, { message: "Incorrect phone number." });
         }
         // Check if the password is correct
         if (!user.validPassword(password)) {
+          console.log("nonfound3")
           return done(null, false, { message: "Incorrect password." });
         }
         return done(null, user);
@@ -67,3 +70,4 @@ passport.use(
 
 // export the Passport configuration from this module
 module.exports = passport;
+

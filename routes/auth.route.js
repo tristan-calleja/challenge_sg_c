@@ -9,7 +9,18 @@ router.get("/signup", (req, res) => {
 
 router.post("/signup", async (req, res) => {
   try {
-    let { firstname, lastname, dateOfBirth, address, phone, password, role, isSenior, isHelper } = req.body;
+    console.log(req.body);
+    let { firstname, lastname, dateOfBirth, houseNumber, street, city, zipcode, phone, password, role } = req.body;
+
+    let address = {
+      houseNumber, 
+      street, 
+      city, 
+      zipcode,
+    };
+
+    let isSenior = role == "isSenior" ? true : false;
+    let isHelper = role == "isHelper" ? true : false;
 
     let user = new User({
       firstname,
@@ -18,22 +29,15 @@ router.post("/signup", async (req, res) => {
       address,
       phone,
       password,
-      role,
       isSenior,
       isHelper,
     });
     console.log(user);
 
-    if(role == "isSenior"){
-      user.isSenior = true;
-    }
-    if(role == "isHelper"){
-      user.isHelper = true;
-    }
     let savedUser = await user.save();
 
     if (savedUser) {
-      res.redirect("/home");//Shall we leave it to "/" as before instead?
+      res.redirect("/signin");//Shall we leave it to "/" as before instead?
     }
   } catch (error) {
     console.log(error);
@@ -47,7 +51,7 @@ router.get("/signin", (req, res) => {
 });
 
 router.post(
-  "/auth/signin",
+  "/signin",
   passport.authenticate("local", {
     successRedirect: "/home", //after login success
     failureRedirect: "/auth/signin", //if fail
@@ -57,7 +61,7 @@ router.post(
 );
 
 //--- Logout Route
-router.get("/auth/logout", (request, response) => {
+router.get("/logout", (request, response) => {
   request.logout(); //clear and break session
   request.flash("success", "Dont leave please come back!");
   response.redirect("/auth/signin");

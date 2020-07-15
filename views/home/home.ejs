@@ -1,1 +1,49 @@
-<h2>HOMEPAGE</h2>
+<h2>Homepage</h2>
+
+<div class="col-md-9">
+    <a class="btn btn-danger" href="/new">Create New List</a>
+  </div>
+
+
+<div class="container">
+    <div class="row">
+        <% lists.forEach(list => { %>
+      <div class="col-4">
+        <div class="box" style="width: 18rem;">
+            <div class="box-body">
+              <h5 class="box-title">Help Senior</h5>
+              <p class="box-text">
+                <%= list.items %>
+              </p>
+              <button class="btn btn-primary"><a href="#" class="box-link">Card link 1</a></button>
+            </div>
+          </div>          
+      </div>
+      <div class="col-4"><div class="box" style="width: 18rem;">
+        <div class="box-body">
+          <h5 class="box-title">Card title</h5>
+          <h6 class="box-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="box-text">
+            Some quick example text to build on the card title and make up the bulk of
+            the card's content.
+          </p>
+          <button class="btn btn-primary"><a href="#" class="box-link">Card link 1</a></button>
+          <button class="btn btn-success"><a href="#" class="box-link">Card link 2</a></button>
+        </div>
+      </div>
+      </div>
+      <div class="col-4"><div class="box" style="width: 18rem;">
+        <div class="box-body">
+          <h5 class="box-title">Card title</h5>
+          <h6 class="box-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="box-text">
+            Some quick example text to build on the card title and make up the bulk of
+            the card's content.
+          </p>
+          <button class="btn btn-primary"><a href="#" class="box-link">Card link 1</a></button>
+          <button class="btn btn-success"><a href="#" class="box-link">Card link 2</a></button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
