@@ -2,6 +2,15 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 var userSchema = new mongoose.Schema({
+  firstname: String,
+    lastname: String,
+    dateOfBirth: String,
+    address: {
+        houseNumber: Number,
+        street: String,
+        city : String,
+        zipcode: String,
+    },
   phone: {
     type: String,
     required: true
@@ -9,7 +18,25 @@ var userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  // role: {
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isSenior: {
+    type: Boolean,
+    default: false,
+  },
+  isHelper: {
+    type: Boolean,
+    default: false,
+  },
+// },
+  lists: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "List",
+  },
 });
 
 userSchema.pre("save", function(next) {

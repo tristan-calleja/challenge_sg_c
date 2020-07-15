@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("../models/User");
+const User = require("../models/user.model");
 
 /*
  * Passport "serializes" objects to make them easy to store, converting the
@@ -48,14 +48,17 @@ passport.use(
     },
     function(phone, password, done) {
       User.findOne({ phone: phone }, function(err, user) {
-        if (err) return done(err);
-
+        if (err) { 
+          return done(err);
+        }
         // If no user is found // TODO. remove flash message for now
-        if (!user) return done(null, false);
-
+        if (!user) { 
+          return done(null, false, { message: "Incorrect phone number." });
+        }
         // Check if the password is correct
-        if (!user.validPassword(password)) return done(null, false);
-
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: "Incorrect password." });
+        }
         return done(null, user);
       });
     }
